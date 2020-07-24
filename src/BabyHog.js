@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
-import normalBaby from './assets/unadulterated-hoglette.png'
+// import normalBaby from './assets/unadulterated-hoglette.png'
 import SunBaby from './assets/sun-eyes.png'
 import BlueBaby from './assets/blue-eyes.png'
 import GlowingBaby from './assets/glowing-eyes.png'
@@ -12,6 +12,15 @@ export default class BabyHog extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      weight: Math.floor(Math.random() * 100)
+    }
+  }
+
+  eyeColorMapper = {
+    blue: BlueBaby,
+    sun: SunBaby,
+    glowing: GlowingBaby
   }
 
   changeWeight = (e) => {
@@ -23,24 +32,25 @@ export default class BabyHog extends Component {
   }
 
   render() {
+    const { name, hobby, eyeColor } = this.props
     return (
       <li className="hogbabies">
-        <h1>Name</h1>
-        <h3>Weight:</h3>
-        <h3>Hobby:</h3>
-        <h4>Eye Color:</h4>
-          
-        <Button name="+">
+        <h1>{name}</h1>
+        <h3>Weight: {this.state.weight}</h3>
+        <h3>Hobby: {hobby}</h3>
+        <h4>Eye Color: {eyeColor}</h4>
+
+        <Button name="+" onClick={this.changeWeight}>
           Increase Weight
         </Button>
-        <Button name="-">
+        <Button name="-" onClick={this.changeWeight}>
           Decrease Weight
         </Button>
 
         <div className="hb-wrap">
-          <img src={normalBaby} style={{height: '200px'}} alt="MasterBlasterJrJr" />
+          <img src={this.eyeColorMapper[eyeColor]} style={{ height: '200px' }} alt="MasterBlasterJrJr" />
         </div>
-        
+
       </li>
     )
   }
